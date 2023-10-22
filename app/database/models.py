@@ -53,7 +53,7 @@ class Reply(Base):
     user_id = Column(Integer, ForeignKey("user_db.id"))
     user = relationship("User", back_populates="replies")
     post_id = Column(Integer, ForeignKey("post_db.id"))
-    post = relationship("Post", back_populates="replies", uselist=True)
+    post = relationship("Post", back_populates="replies")
     
     created_on = Column(DateTime(timezone=True), server_default=func.now())
     updated_on = Column(DateTime(timezone=True), server_onupdate=func.now())

@@ -13,13 +13,8 @@ router = APIRouter(tags=["User"])
 def get_all_users(db: Session = Depends(get_db)):
     return db.query(models.User).all()
 
-@router.post("/users", status_code=201)
-def create_Users(user:schemas.UserEntry, db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.id == id).first()
-    if db_user:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail=f"email ou usuário já cadastrado."
-        )
+@router.post("/create", status_code=201)
+def create_users(user:schemas.UserEntry, db: Session = Depends(get_db)):
     psw_hashed = utilis.hash(user.password)
     user.password = psw_hashed
     new_user = models.User(**user.model_dump())
@@ -57,3 +52,17 @@ def update_user(user_id: str, user: schemas.UserUpdate, db: Session = Depends(ge
     db.commit()
     
     return {"message": "updated"}
+
+@router.delete("/{id}", status_code=204)
+def delete_user(user_id: str, db: Session = Depends(get_db), current_user: int= Depends(current_User)):
+    user_query = db.query(models.User).filter(models.User.id == user_id).first()
+    if current_user.email != user_query.email:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail={'message': 'Operação não autorizada'}
+        )
+
+    db.delete(user_query)
+    db.commit()
+    return Response(status_code=204)
+

@@ -23,6 +23,22 @@ class UserUpdate(BaseModel):
     is_active: Optional[bool] = True
 
 
+class PostEntry(BaseModel):
+    title: str
+    body: str
+
+class PostUpdate(BaseModel):
+    title: Optional[str] = None
+    body: Optional[str] = None
+
+
+class ReplyEntry(BaseModel):
+    body: str
+
+class ReplyUpdate(BaseModel):
+    body: Optional[str] = None
+
+
 class Token(BaseModel):
 	access_token: str
 	token_type: str
