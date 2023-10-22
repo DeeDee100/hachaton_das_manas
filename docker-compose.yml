@@ -8,7 +8,16 @@ services:
       - POSTGRES_DB=liderada
 
   web:
-    build: .
+    build:
+      context: ./front/
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+
+  app:
+    build: 
+      context: ./app/
+      dockerfile: ./Dockerfile
     volumes:
       - .:/app
     ports:
