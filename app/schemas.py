@@ -10,6 +10,7 @@ class UserEntry(BaseModel):
     username: str
     age: Optional[int] = None
     raca: Optional[str] = None
+    genero: Optional[str] = None
     uf: Optional[str] = None
 
 class UserUpdate(BaseModel):
@@ -19,6 +20,7 @@ class UserUpdate(BaseModel):
     username: Optional[str] = None
     age: Optional[int] = None
     raca: Optional[str] = None
+    genero: Optional[str] = None
     uf: Optional[str] = None
     is_active: Optional[bool] = True
 
