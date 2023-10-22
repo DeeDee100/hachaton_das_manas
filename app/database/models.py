@@ -13,6 +13,7 @@ class User(Base):
     name = Column(String, nullable=False)
     age =  Column(Integer, nullable=True)
     raca =  Column(String, nullable=True)
+    genero =  Column(String, nullable=True)
     uf =  Column(String, nullable=True)
     is_active = Column(Boolean, default=True)
     created_on = Column(DateTime(timezone=True), server_default=func.now())
